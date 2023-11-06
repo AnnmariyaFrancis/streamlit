@@ -1,5 +1,5 @@
 streamlit==1.28.1
-opencv-python==4.8.74
+opencv-python==4.8.0.74
 numpy==1.19.3
 imutils==0.5.4
 easyocr==1.7.1
