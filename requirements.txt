@@ -1,6 +1,8 @@
-streamlit
-opencv-python
-imutils
-easyocr
-matplotlib
-tensorflow
+streamlit==1.4.1
+opencv-python==4.5.1
+numpy==1.19.5
+imutils==0.5.3
+easyocr==1.4
+matplotlib==3.3.4
+tensorflow==2.6.0
+
