@@ -26,7 +26,7 @@ signal_detection_model = Model(inputs=signal_model.input, outputs=predictions)
 signal_detection_model.load_weights('signal.h5')
 
 # Load the helmet detection model
-helmet_cascade = cv2.CascadeClassifier(r'D:\DL_Projects\helmet_detection\haarcascade_helmet.xml')
+helmet_cascade = cv2.CascadeClassifier(r'haarcascade_helmet.xml')
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
