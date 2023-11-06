@@ -23,7 +23,7 @@ x = Dense(1024, activation='relu')(x)
 predictions = Dense(1, activation='sigmoid')(x)
 
 signal_detection_model = Model(inputs=signal_model.input, outputs=predictions)
-signal_detection_model.load_weights('D:\DL_Projects\helmet_detection\signal.h5')
+signal_detection_model.load_weights('signal.h5')
 
 # Load the helmet detection model
 helmet_cascade = cv2.CascadeClassifier(r'D:\DL_Projects\helmet_detection\haarcascade_helmet.xml')
