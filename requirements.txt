@@ -1,7 +1,6 @@
 streamlit==1.23.1
 opencv-python==4.8.0.74
 imutils==0.5.4
-numpy==1.26.1
 easyocr==1.7.1
 matplotlib==3.7.2
 tensorflow==2.12.0
