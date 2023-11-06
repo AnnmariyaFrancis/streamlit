@@ -1,6 +1,6 @@
-streamlit==0.88.0
-opencv-python==4.5.3.56
+streamlit==1.23.1
+opencv-python==4.8.0.74
 imutils==0.5.4
-easyocr==1.4.1
-matplotlib==3.4.3
-tensorflow==2.6.0
+easyocr==1.7.1
+matplotlib==3.7.2
+tensorflow==2.12.0
