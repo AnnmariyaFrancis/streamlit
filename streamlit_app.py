@@ -110,4 +110,6 @@ elif app_option == "Helmet Detection and License Plate Extraction":
                 res = cv2.rectangle(img, tuple(location[0][0]), tuple(location[2][0]), (0, 255, 0), 2)
                 plt.imshow(cv2.cvtColor(res, cv2.COLOR_BGR2RGB))
                 st.image(cv2.cvtColor(res, cv2.COLOR_BGR2RGB), use_column_width=True, caption="Image with Extracted License Plate and Text")
-
+            else:
+                st.image(img, use_column_width=True, caption="No helmet and license plate is detected")
+                plt.imshow(img)
