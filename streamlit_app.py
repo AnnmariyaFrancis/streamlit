@@ -33,7 +33,7 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 st.title("Combined Detection App")
 
 # Choose the section based on user input
-app_option = st.radio("Select an option:", ("Signal Violation Detection", "Helmet and License Plate Detection"))
+app_option = st.radio("Select an option:", ("Signal Violation Detection", "Helmet Detection and License Plate Extraction"))
 
 if app_option == "Signal Violation Detection":
     st.title("Signal Violation Detection")
