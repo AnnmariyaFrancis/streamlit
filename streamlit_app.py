@@ -33,10 +33,10 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 st.title("Combined Detection App")
 
 # Choose the section based on user input
-app_option = st.radio("Select an option:", ("Signal Violation Detection", "Helmet Detection and License Plate Extraction"))
+app_option = st.radio("Select an option:", ("Red Light Signal Violation Detection", "Helmet Detection and License Plate Extraction"))
 
-if app_option == "Signal Violation Detection":
-    st.title("Signal Violation Detection")
+if app_option == "Red Light Signal Violation Detection":
+    st.title("Red Light Signal Violation Detection")
 
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
@@ -56,8 +56,8 @@ if app_option == "Signal Violation Detection":
             st.image(uploaded_image, caption="No Signal Violation Detected", use_column_width=True)
             st.write("The model predicted no signal violation for the image")
 
-elif app_option == "Helmet and License Plate Detection":
-    st.title("Helmet and License Plate Detection app")
+elif app_option == "Helmet Detection and License Plate Extraction":
+    st.title("Helmet Detection and License Plate Extraction")
 
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
