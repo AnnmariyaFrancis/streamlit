@@ -1,115 +1,143 @@
 import streamlit as st
-import cv2
-import numpy as np
-import imutils
-import easyocr
-import matplotlib.pyplot as plt
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
-from tensorflow.keras.models import Model
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow import keras
+from PIL import Image
 
-# Define the input image size for both apps
-image_size = (224, 224)
+with open("style.css") as f:
+    st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
 
-# Load the signal violation detection model
-signal_model = keras.applications.MobileNetV2(input_shape=image_size + (3,), include_top=False, weights='imagenet')
-signal_model.trainable = False
+#####################
+# Header 
+st.write('''
+# Ann Mariya Francis.
+##### *Resume* 
+''')
 
-x = GlobalAveragePooling2D()(signal_model.output)
-x = Dense(1024, activation='relu')(x)
-predictions = Dense(1, activation='sigmoid')(x)
+image = Image.open('Ann_Mariya.jpg')
+st.image(image, width=150)
 
-signal_detection_model = Model(inputs=signal_model.input, outputs=predictions)
-signal_detection_model.load_weights('signal.h5')
+st.markdown('## Summary', unsafe_allow_html=True)
+st.info('''
+- Dedicated data science specialist, recently graduated with a strong foundation in data analysis, machine learning, and statistical modeling.   
+- Proficient in programming languages and excited to contribute to impactful projects while continuously expanding my skill set.  
 
-# Load the helmet detection model
-helmet_cascade = cv2.CascadeClassifier(r'haarcascade_helmet.xml')
+''')
 
-font = cv2.FONT_HERSHEY_SIMPLEX
+#####################
+# Navigation
 
-st.title("Combined Detection App")
+st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 
-# Choose the section based on user input
-app_option = st.radio("Select an option:", ("Red Light Signal Violation Detection", "Helmet Detection and License Plate Extraction"))
+st.markdown("""
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #16A2CB;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#education">Education</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#work-experience">Work Experience</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#social-media">Social Media</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+""", unsafe_allow_html=True)
 
-if app_option == "Red Light Signal Violation Detection":
-    st.title("Red Light Signal Violation Detection")
+#####################
+# Custom function for printing text
+def txt(a, b):
+  col1, col2 = st.columns([4,1])
+  with col1:
+    st.markdown(a)
+  with col2:
+    st.markdown(b)
 
-    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+def txt2(a, b):
+  col1, col2 = st.columns([1,4])
+  with col1:
+    st.markdown(f'`{a}`')
+  with col2:
+    st.markdown(b)
 
-    if uploaded_image is not None:
-        new_image = image.load_img(uploaded_image, target_size=image_size)
-        new_image = image.img_to_array(new_image)
-        new_image = np.expand_dims(new_image, axis=0)
-        new_image = new_image / 255.0
+def txt3(a, b):
+  col1, col2 = st.columns([1,2])
+  with col1:
+    st.markdown(a)
+  with col2:
+    st.markdown(b)
+  
+def txt4(a, b, c):
+  col1, col2, col3 = st.columns([1.5,2,2])
+  with col1:
+    st.markdown(f'`{a}`')
+  with col2:
+    st.markdown(b)
+  with col3:
+    st.markdown(c)
 
-        predictions = signal_detection_model.predict(new_image)
-        binary_prediction = (predictions > 0.5).astype(int)
+#####################
+st.markdown('''
+## Education
+''')
 
-        if binary_prediction[0] == 1:
-            st.image(uploaded_image, caption="Signal Violation Detected", use_column_width=True)
-            st.write("The model predicted a signal violation for the image.")
-        else:
-            st.image(uploaded_image, caption="No Signal Violation Detected", use_column_width=True)
-            st.write("The model predicted no signal violation for the image")
+txt('**Master Of Science** (Data Analytics), *St. Joseph’s College*,Irinjalakuda',
+'2021-2023')
+st.markdown('''
+- Published paper "Data Science in Education In this paper, we discuss how data science can be applied to education "  
+- Participated in regional-level ideathon conducted by IEDC   
+- A national-level one-day workshop on "Cloud Technologies And The Role Of Cloud In Data 
+  Science" arranged by  St. Joseph's College, Irinjalakuda     
+  
+''')
 
-elif app_option == "Helmet Detection and License Plate Extraction":
-    st.title("Helmet Detection and License Plate Extraction")
+txt('**Bachelor of Science** (Mathematics), *St. Joseph’s College*,Irinjalakuda','2018-2021')
+st.markdown('''
+- Participated in National Integration Camp for NCC Cadets
+- Graduated with First Class .
+''')
 
-    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+#####################
+st.markdown('''
+## Work Experience
+''')
 
-    if uploaded_image is not None:
-        img = cv2.imdecode(np.fromstring(uploaded_image.read(), np.uint8), cv2.IMREAD_COLOR)
-        conv_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        st.image(conv_img, use_column_width=True, caption="Original Image")
+txt('**Data Analyst intern**,Yoshops,Chennai,India','Feb 2023 -April 2023')
+st.markdown('''
+- Implemented a more sophisticated sales forecasting model at Yoshops, resulting in a 15% increase in forecast accuracy.
+- Designed and implemented a user-friendly data visualization dashboard using PowerBI.This dashboard reduced the time spent on data analysis by 30%.
+''')
 
-        img_gray = cv2.cvtColor(conv_img, cv2.COLOR_BGR2GRAY)
+txt('**Data Science intern**, Luminar Techno lab ,Ernakulam,kerala,India',
+'Jan 2023-July 2023')
+st.markdown('''
+- Spearheaded data preprocessing, model development, and optimization efforts, resulting in a 40% reduction in data processing time and a 25% improvement in model accuracy.
+''')
 
-        for i in range(1, 100):
-            plates = helmet_cascade.detectMultiScale(img_gray, scaleFactor=1.1, minNeighbors=i, minSize=(60, 60))
-            if len(plates) == 1:
-                (x, y, w, h) = plates[0]
-                cv2.rectangle(img, (x, y), (x + 2 * w, y + 2 * h), color=(0, 255, 0), thickness=2)
-                st.image(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), use_column_width=True, caption="Image with Detected Helmet")
-                break
+txt('**TCS iON Remote internship**','June 2023-Aug 2023')
+st.markdown('''
+- Worked on the project "•	Automate Extraction of Handwritten Text from an Image "
+''')
+#####################
+st.markdown('''
+## Skills
+''')
+txt3('Programming', '`Python`, `R`, `Linux`')
+txt3('Data processing/wrangling', '`SQL`, `pandas`, `numpy`')
+txt3('Data visualization', '`matplotlib`, `seaborn`, `plotly`, `ggplot2`,`PowerBi`,`Tableau`')
+txt3('Machine Learning', '`scikit-learn`')
+txt3('Deep Learning', '`TensorFlow`,`PyTorch`,`XGBoost`')
+txt3('Web development', '`Flask`, `HTML`, `CSS`')
+txt3('Model deployment', '`streamlit`')
 
-        if len(plates) == 0:
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            bfilter = cv2.bilateralFilter(gray, 11, 17, 17)
-            edged = cv2.Canny(bfilter, 30, 200)
-            keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-            contours = imutils.grab_contours(keypoints)
-            contours = sorted(contours, key=cv2.contourArea, reverse=True)[:10]
-            location = None
-            for contour in contours:
-                approx = cv2.approxPolyDP(contour, 10, True)
-                if len(approx) == 4:
-                    location = approx
-                    break
-            if location is not None:
-                mask = np.zeros(gray.shape, np.uint8)
-                new_image = cv2.drawContours(mask, [location], 0, 255, -1)
-                new_image = cv2.bitwise_and(img, img, mask=mask)
-                (x, y) = np.where(mask == 255)
-                (x1, y1) = (np.min(x), np.min(y))
-                (x2, y2) = (np.max(x), np.max(y))
-                cropped_image = gray[x1:x2 + 1, y1:y2 + 1]
-                reader = easyocr.Reader(['en'])
-                result = reader.readtext(cropped_image)
+#####################
+st.markdown('''
+## Social Media
+''')
+txt2('LinkedIn', 'https://www.linkedin.com/in/ann-mariya-francis-3b29b3216?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BjZ%2FJvUghS86XIr9n2JqFkg%3D%3D')
 
-                text = ''
-                for i in range(0, len(result)):
-                    new_text = result[i][-2]
-                    text += new_text
-
-                text_position = (location[0][0][0], location[1][0][1] - 20)
-                res = cv2.putText(img, text=text, org=text_position, fontFace=font, fontScale=1, color=(255, 255, 255), thickness=4, lineType=cv2.LINE_AA)
-                res = cv2.rectangle(img, tuple(location[0][0]), tuple(location[2][0]), (0, 255, 0), 2)
-                plt.imshow(cv2.cvtColor(res, cv2.COLOR_BGR2RGB))
-                st.image(cv2.cvtColor(res, cv2.COLOR_BGR2RGB), use_column_width=True, caption="Image with Extracted License Plate and Text")
-            else:
-                st.image(img, use_column_width=True, caption="No helmet and license plate is detected")
-                plt.imshow(img)
+txt2('GitHub', 'https://github.com/AnnmariyaFrancis')
+txt2('Leetcode', 'https://leetcode.com/annmariyafrancis1631/')
